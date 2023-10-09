@@ -1,0 +1,19 @@
+node {
+    stage('Checkout') {
+        // Check out the code from the Git repository into a folder
+        checkout([$class: 'GitSCM', branches: [[name: 'Develop']], userRemoteConfigs: [[url: 'https://your-repo-url.git']]])
+    }
+
+    stage('Pull to Folder') {
+        // Define the folder where you want to pull the content
+        def targetFolder = 'my-folder'
+        
+        // Create the folder if it doesn't exist
+        dir(targetFolder) {
+            // Pull the content into the folder
+            sh 'git pull origin Develop'
+        }
+    }
+
+    // Add more stages for your pipeline tasks
+}
